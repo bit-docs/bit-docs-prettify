@@ -1,0 +1,65 @@
+{
+  "name": "bit-docs-prettify",
+  "version": "0.0.1",
+  "description": "prettify code plugin",
+  "main": "prettify.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "install-engine-dependencies"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bit-docs/bit-docs-prettify.git"
+  },
+  "keywords": [
+    "bit-docs"
+  ],
+  "author": "Bitovi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bit-docs/bit-docs-prettify/issues"
+  },
+  "homepage": "https://github.com/bit-docs/bit-docs-prettify#readme",
+  "system": {
+    "meta": {
+      "./prettify-engine": {"format": "global"}
+    }
+  },
+  "devDependencies": {
+    "bit-docs-generate-html": "^0.0.1",
+    "q": "^1.4.1",
+    "engine-dependencies": "^0.2.0",
+    "connect": "^2.14.4"
+  },
+  "engineDependencies": {
+    "node": {
+      "0.10.x": {
+        "devDependencies": {
+          "zombie": "^3.1.1"
+        }
+      },
+      "0.12.x": {
+        "devDependencies": {
+          "zombie": "^3.1.1"
+        }
+      },
+      "^4.0.0": {
+        "devDependencies": {
+          "zombie": "^4.2.1"
+        }
+      },
+      "^5.0.0": {
+        "devDependencies": {
+          "zombie": "^4.2.1"
+        }
+      }
+    },
+    "iojs": {
+      "^3.0.0": {
+        "devDependencies": {
+          "zombie": "^4.1.0"
+        }
+      }
+    }
+  }
+}

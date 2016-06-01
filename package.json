@@ -1,6 +1,6 @@
 {
   "name": "bit-docs-prettify",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "prettify code plugin",
   "main": "prettify.js",
   "scripts": {
@@ -28,7 +28,9 @@
   "homepage": "https://github.com/bit-docs/bit-docs-prettify#readme",
   "system": {
     "meta": {
-      "./prettify-engine": {"format": "global"}
+      "./prettify-engine": {
+        "format": "global"
+      }
     }
   },
   "devDependencies": {

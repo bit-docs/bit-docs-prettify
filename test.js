@@ -1,6 +1,7 @@
 var generate = require("bit-docs-generate-html/generate");
 var Q = require("q");
 var path = require("path");
+var assert = require("assert");
 
 var Browser = require("zombie"),
 	connect = require("connect");
@@ -69,22 +70,20 @@ describe("bit-docs-generate-html", function(){
             },
             dest: path.join(__dirname, "temp"),
             parent: "index",
-            forceBuild: true,
-            debug: true
+            forceBuild: true
         }).then(function(){
 
             open("temp/index.html",function(browser, close){
 
-				var rets = browser.window.document.getElementsByClassName("returns")
+				var prettyprinted = browser.window.document.getElementsByClassName("prettyprint")
 
-				assert.ok(rets.length, "has a returns object")
+				assert.ok(prettyprinted.length, "has a returns object")
 
 				close();
 				done();
 
 			},done);
 
-            done();
         }).catch(function(err){
             console.log("err",err.stack);
             done(err)

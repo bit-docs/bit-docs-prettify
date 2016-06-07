@@ -51,7 +51,7 @@ var open = function(url, callback, done){
 
 // somehow do a build with this added on ...
 
-describe("bit-docs-generate-html", function(){
+describe("bit-docs-prettify", function(){
     it("basics work", function(done){
         this.timeout(30000);
 

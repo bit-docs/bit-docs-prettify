@@ -42,10 +42,10 @@ var open = function(url, callback, done){
 		.then(function(){
 			callback(browser, function(){
 				server.close();
-			})
+			});
 		}).catch(function(e){
 			server.close();
-			done(e)
+			done(e);
 		});
 };
 
@@ -75,9 +75,9 @@ describe("bit-docs-prettify", function(){
 
             open("temp/index.html",function(browser, close){
 
-				var prettyprinted = browser.window.document.getElementsByClassName("prettyprint")
+				var prettyprinted = browser.window.document.getElementsByClassName("prettyprint");
 
-				assert.ok(prettyprinted.length, "has a returns object")
+				assert.ok(prettyprinted.length, "has a returns object");
 
 				close();
 				done();
@@ -86,7 +86,7 @@ describe("bit-docs-prettify", function(){
 
         }).catch(function(err){
             console.log("err",err.stack);
-            done(err)
+            done(err);
         });
     });
 });

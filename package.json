@@ -1,6 +1,6 @@
 {
   "name": "bit-docs-prettify",
-  "version": "0.3.1",
+  "version": "0.1.0",
   "description": "prettify code plugin",
   "main": "prettify.js",
   "scripts": {

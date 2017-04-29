@@ -89,4 +89,43 @@ describe("bit-docs-prettify", function(){
             done(err);
         });
     });
+
+	it("disable works", function(done){
+        this.timeout(30000);
+
+        var docMap = Q({
+            index: {
+                name: "disable",
+                body: "```none\nvar str ='hello world';\n```"
+            }
+        });
+
+        generate(docMap,{
+            html: {
+                dependencies: {
+                    "bit-docs-prettify": __dirname
+                }
+            },
+            dest: path.join(__dirname, "temp"),
+            parent: "index",
+            forceBuild: true
+        }).then(function(){
+
+            open("temp/disable.html",function(browser, close){
+
+				var classes = browser.window.document.getElementsByTagName("code")[0].className;
+				
+				assert.ok(classes.indexOf('language-none') > -1, "has been disabled");
+				assert.ok(classes.indexOf('prettyprint') === -1, "has been disabled");
+
+				close();
+				done();
+
+			},done);
+
+        }).catch(function(err){
+            console.log("err",err.stack);
+            done(err);
+        });
+    });
 });

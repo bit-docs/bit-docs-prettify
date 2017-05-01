@@ -52,28 +52,28 @@ var open = function(url, callback, done){
 // somehow do a build with this added on ...
 
 describe("bit-docs-prettify", function(){
-    it("basics work", function(done){
-        this.timeout(30000);
+	it("basics work", function(done){
+		this.timeout(30000);
 
-        var docMap = Q({
-            index: {
-                name: "index",
-                body: "```\nvar str ='hello world';\n```"
-            }
-        });
+		var docMap = Q({
+			index: {
+				name: "index",
+				body: "```\nvar str ='hello world';\n```"
+			}
+		});
 
-        generate(docMap,{
-            html: {
-                dependencies: {
-                    "bit-docs-prettify": __dirname
-                }
-            },
-            dest: path.join(__dirname, "temp"),
-            parent: "index",
-            forceBuild: true
-        }).then(function(){
+		generate(docMap,{
+			html: {
+				dependencies: {
+					"bit-docs-prettify": __dirname
+				}
+			},
+			dest: path.join(__dirname, "temp"),
+			parent: "index",
+			forceBuild: true
+		}).then(function(){
 
-            open("temp/index.html",function(browser, close){
+			open("temp/index.html",function(browser, close){
 
 				var prettyprinted = browser.window.document.getElementsByClassName("prettyprint");
 
@@ -84,9 +84,48 @@ describe("bit-docs-prettify", function(){
 
 			},done);
 
-        }).catch(function(err){
-            console.log("err",err.stack);
-            done(err);
-        });
-    });
+		}).catch(function(err){
+			console.log("err",err.stack);
+			done(err);
+		});
+	});
+
+	it("disable works", function(done){
+		this.timeout(30000);
+
+		var docMap = Q({
+			index: {
+				name: "disable",
+				body: "```none\nvar str ='hello world';\n```"
+			}
+		});
+
+		generate(docMap,{
+			html: {
+				dependencies: {
+					"bit-docs-prettify": __dirname
+				}
+			},
+			dest: path.join(__dirname, "temp"),
+			parent: "index",
+			forceBuild: true
+		}).then(function(){
+
+			open("temp/disable.html",function(browser, close){
+
+				var classes = browser.window.document.getElementsByTagName("code")[0].className;
+				
+				assert.ok(classes.indexOf('language-none') > -1, "has language-none class");
+				assert.ok(classes.indexOf('prettyprint') === -1, "does not have prettyprint");
+
+				close();
+				done();
+
+			},done);
+
+		}).catch(function(err){
+			console.log("err",err.stack);
+			done(err);
+		});
+	});
 });

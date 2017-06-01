@@ -1,182 +1,194 @@
+@import "locate://bit-docs-prettify/prettify-variables.less";
+
+// allow user theme to override variables
 @import "locate://bit-docs-site/styles/variables.less";
 
 /**
-* @stylesheet code.less Code Rendering
-* @parent Styles.baseline-elements
-*
-* @description
-* Enables both the layout of code wells, and also the syntax highlighting of the specific code language. Syntax coloring provided by prettify.js with the <a href="https://github.com/chriskempson/tomorrow-theme">Tomorrow Theme</a>.
-*
-* Code "wells" are styled based on the use of the `<pre>` and `<code>` tags around your desired code example.
-*
-* Below are a few examples in various languages. This is not an exhaustive list of supported languages.
-*
-* ### HTML
-* ```
-* <pre>
-    <code>
-      <div class="example"><!--with a comment -->
-        <h1>Example</h1>
-        <p>This is some example code that is being styled.</p>
-      </div>
-    </code>
-  </pre>
-*
-* ```
-* ### JavaScript
-*```
-var foo = require('f'),
-    bar = require('br'),
-    writeFile = f.denodify(br.writeFile),
-    path = require('path');
+ * @stylesheet prettify.less Prettify
+ * @parent bit-docs/theme
+ *
+ * @description
+ * Layout of code wells and syntax highlighting of code languages. 
+ *
+ * @body
+ *
+ * Syntax highlighting and colors provided by 
+ * <a href="https://github.com/google/code-prettify">prettify.js</a> and
+ * <a href="https://github.com/chriskempson/tomorrow-theme">Tomorrow Theme</a>.
+ *
+ * Code "wells" are styled based on the use of the `<pre>` and `<code>` tags
+ * around your desired code example.
+ *
+ * Below are examples in a few of the supported languages.
+ *
+ * ### HTML
+ *
+ * ```html
+ * <pre>
+ *   <code>
+ *     <div class="example"><!--with a comment -->
+ *       <h1>example</h1>
+ *       <p>this is some example code that is being styled.</p>
+ *     </div>
+ *   </code>
+ * </pre>
+ *
+ * ```
+ *
+ * ### JavaScript
+ *
+ *```js
+ * var foo = require('f'),
+ *     bar = require('br'),
+ *     writefile = f.denodify(br.writefile),
+ *     path = require('path');
+ * 
+ * module.exports = function(littlepromise, options){
+ *    return littlepromise.then(function(little){
+ *      return writefile(
+ *          path.join(options.dest,'little.json'),
+ *          json.stringify(little) );
+ *    });
+ * };
+ * ```
+ *
+ * ### JSON
+ *
+ *```json
+ * {
+ *   "sites": {
+ *     "docs": {
+ *       "key" : "value"
+ *     }
+ *   }
+ * }
+ * ```
+ */
 
-module.exports = function(littlePromise, options){
-   return littlePromise.then(function(little){
-     return writeFile(
-         path.join(options.dest,'little.json'),
-         JSON.stringify(little) );
-   });
-};
-* ```
-* ### JSON
-*```
-{
-  "sites": {
-    "docs": {
-      "key" : "value"
-    }
-  }
-}
-* ```
-*
-**/
 code {
-	background-color: @colorCode;
-  border-radius: 5px;
   padding: 0 5px;
-}
-pre, code, pre *, code * {
-	font-family: "Courier New", Courier, mono;
-  font-style: normal;
-  font-weight: 300;
-}
-pre {
-  background-color: @clear;
-  border: 1px solid @haze;
   border-radius: 5px;
+  background-color: @colorCode;
+}
+
+pre, code, pre *, code * {
+  font-weight: 300;
+  font-style: normal;
+  font-family: "courier new", courier, mono;
+}
+
+pre {
   margin: 0;
+  overflow: auto;
+  border-radius: 5px;
+  padding: 10px 20px;
   margin-bottom: 20px;
   vertical-align: top;
-  overflow:auto;
-  padding: 10px 20px;
+  border: 1px solid @haze;
+  background-color: @clear;
 
-  code{
-  	font-size: 14px;
-  	line-height: 16px;
-  	letter-spacing: 0px;
-  	background-color: transparent;
+  code {
+    font-size: 14px;
+    line-height: 16px;
+    letter-spacing: 0px;
+    padding: 0 !important;
+    background-color: transparent;
   }
 
   ol {
-  	margin: 0 0 0 40px;
-  	padding: 0;
+    padding: 0;
+    font-size: 14px;
+    margin: 0 0 0 40px;
 
-  	li {
-  		text-indent: 0;
-  		color: @darkSkies;
-  		background-color: @clear;
-  		margin: 0;
-  		list-style: decimal;
-  	}
+    li {
+      margin: 0;
+      text-indent: 0;
+      color: @darkSkies;
+      list-style: decimal;
+      background-color: @clear;
+    }
   }
 }
 
-  /* Tomorrow Theme */
-  /* Original theme - https://github.com/chriskempson/tomorrow-theme */
-  /* Pretty printing styles. Used with prettify.js. */
-  /* SPAN elements with the classes below are added by prettyprint. */
-  /* plain text */
-
-code.prettyprint {
-    padding:0 !Important;
-}
+// Tomorrow Theme (https://github.com/chriskempson/tomorrow-theme)
 
 .pln {
   color: @darkSkies;
 }
 
 @media screen {
-  /* string content */
+  // string content
   .str {
-    color:@str-color;
+    color: @str-color;
   }
 
-  /* a keyword */
+  // a keyword
   .kwd {
-    color:@kwd-color;
+    color: @kwd-color;
   }
 
-  /* a comment */
+  // a comment
   .com {
     color: @com-color;
   }
 
-  /* a type name */
+  // a type name
   .typ {
     color: @type-color;
   }
 
-  /* a literal value */
+  // a literal value
   .lit {
     color: @lit-color;
   }
 
-  /* punctuation */
+  // punctuation
   .pun {
     color: @pun-color;
   }
 
-  /* lisp open bracket */
+  // lisp open bracket
   .opn {
     color: @opn-color;
   }
 
-  /* lisp close bracket */
+  // lisp close bracket
   .clo {
     color: @clo-color;
   }
 
-  /* a markup tag name */
+  // a markup tag name
   .tag {
     color: @tag-color;
   }
 
-  /* a markup attribute name */
+  // a markup attribute name
   .atn {
     color: @atn-color;
   }
 
-  /* a markup attribute value */
+  // a markup attribute value
   .atv {
     color: @atv-color;
   }
 
-  /* a declaration */
+  // a declaration
   .dec {
     color: @dec-color;
   }
 
-  /* a variable name */
+  // a variable name
   .var {
     color: @var-color;
   }
 
-  /* a function name */
+  // a function name
   .fun {
     color: @var-color;
   }
 }
-  /* Use higher contrast and text-weight for printable form. */
+
+// increase contrast and text-weight for print/projection
 @media print, projection {
   .str {
     color: @str-color-pp;
@@ -198,7 +210,7 @@ code.prettyprint {
   }
 
   .lit {
-    color:@lit-color-pp;
+    color: @lit-color-pp;
   }
 
   .pun, .opn, .clo {
@@ -218,45 +230,28 @@ code.prettyprint {
     color: @atv-color-pp;
   }
 }
-  /* Style */
-pre.prettyprint {
-  //background: @pp-bg;
-  font-family: Menlo, "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, Consolas, monospace;
-  font-size: 14px;
-  border: 1px solid @haze;
-  padding: 10px;
-}
 
-pre.prettyprint ol {
-  font-size: 14px;
-  margin-bottom: 0px;
-}
-
-  /* Specify class=linenums on a pre to get line numbering */
+// specify class=linenums on a pre to get line numbering
 ol.linenums {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-  /* IE indents via margin-left */
-li.L0,
-li.L1,
-li.L2,
-li.L3,
-li.L4,
-li.L5,
-li.L6,
-li.L7,
-li.L8,
-li.L9 {
-  /* */
-}
+// ie indents via margin-left
+li.l0,
+li.l1,
+li.l2,
+li.l3,
+li.l4,
+li.l5,
+li.l6,
+li.l7,
+li.l8,
+li.l9 {}
 
-  /* Alternate shading for lines */
-li.L1,
-li.L3,
-li.L5,
-li.L7,
-li.L9 {
-  /* */
-}
+// alternate shading for lines
+li.l1,
+li.l3,
+li.l5,
+li.l7,
+li.l9 {}

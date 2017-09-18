@@ -6,7 +6,7 @@ module.exports = function(){
     for(var i = 0; i < codes.length; i ++){
         var code = codes[i];
         if(code.parentNode.nodeName.toUpperCase() === "PRE"){
-            code.className = code.className +" prettyprint";
+            code.parentNode.className = code.parentNode.className + " prettyprint";
         }
     }
     //turn off batching (https://github.com/google/code-prettify/blob/master/src/prettify.js#L142)

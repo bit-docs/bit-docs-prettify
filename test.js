@@ -30,7 +30,7 @@ describe("bit-docs-prettify", function() {
 		var docMap = Q({
 			index: {
 					name: "index",
-					body: "```javascript\nvar str ='hello world';\n```\n\n```css\nbody { margin: 0; }\n```\n\n```\n// some misc code\n```\n\n`var str ='hello world';`"
+					body: "```javascript\nvar str = 'hello world';\n```\n\n```css\nbody {\n  margin: 0;\n  background: purple;\n}\n```\n\n```shell\npwd\n```\n\n```\n// some misc code\n```\n\n`var str = 'hello world';`"
 			}
 		});
 
@@ -52,7 +52,7 @@ describe("bit-docs-prettify", function() {
 						assert.ok(codes[i].className.includes("language-"), "has a language");
 
 						if (codes[i].parentNode.nodeName === "pre") {
-							assert.ok(codes[i].parentNode.className.includes("language-"), "has a language");
+							assert.ok(codes[i].parentNode.className.includes("language-"), "parent has a language");
 						}
 					}
 

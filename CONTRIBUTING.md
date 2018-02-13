@@ -33,10 +33,10 @@ npm test
 This will produce a directory and file at `temp/index.html`, containing the source-code snippet in HTML:
 
 ```html
-<pre><code class="language-javascript">var str ='hello world';</code></pre>
-<pre><code class="language-css">body{ margin: 0; }</code></pre>
+<pre><code class="language-javascript">var str = 'hello world';</code></pre>
+<pre><code class="language-css">body{ margin: 0; background: purple; }</code></pre>
 <pre><code>// some misc code</code></pre>
-<p><code>var str ='hello world';</code>
+<p><code>var str = 'hello world';</code>
 ```
 
 Running the tests will verify that this source-code snippet in HTML is correctly prettified by the plugin.
@@ -44,18 +44,21 @@ Running the tests will verify that this source-code snippet in HTML is correctly
 In [`test.js`](test.js), the [bit-docs-generate-html](https://github.com/bit-docs/bit-docs-generate-html) plugin is generating HTML from the equivalent of this markdown:
 
     ```javascript
-    var str ='hello world';
+    var str = 'hello world';
     ```
 
     ```css
-    body { margin: 0; }
+    body {
+      margin: 0;
+      background: purple;
+    }
     ```
 
     ```
     // some misc code
     ```
 
-    `var str ='hello world';`
+    `var str = 'hello world';`
 
 That shows how a bit-docs "generator" plugin can generate the right HTML to play nice with `bit-docs-prettify`.
 

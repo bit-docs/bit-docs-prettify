@@ -31,17 +31,15 @@ Now use the `bit-docs` command-line tool to install the added plugin dependency:
 
 Your project should now support syntax highlighting of source-code snippets in the following languages:
 
-    bsh, c, cc, cpp, cs, csh, cyc, cv, htm, html, java, js, m, mxml, perl, pl, pm, py, rb, sh, xhtml, xml, xsl 
+    javascript, js, clike, css, markup, xml, html, mathml, svg
 
 Use the following HTML code to trigger syntax highlighting of a source-code snippet:
 
 ```html
-<pre><code class="language-java">...</code></pre>
+<pre><code class="language-javascript">...</code></pre>
 ```
 
-You can replace `language-java` with an option from the list of supported languages above, like `language-js`.
-
-The code prettifier script will make an educated guess if you remove the `class="language-*"` declaration entirely.
+You can replace `language-javascript` with an option from the list of supported languages above, like `language-js`.
 
 ## Contributing
 

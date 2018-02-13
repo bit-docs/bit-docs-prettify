@@ -6,9 +6,7 @@ For general contributing guidelines, see the [Contributing Guide on DoneJS.com](
 
     bit-docs-prettify
     ├── bit-docs.js         # Registers this package into the bit-docs system as a dependency.
-    ├── prettify-engine.js  # The minified JavaScript for the prettify engine from google/code-prettify.
-    ├── prettify.js         # Bootstraps the prettify-engine.js and prettify.less files.
-    ├── prettify.less       # The "Tomorrow Night" syntax highlight theme.
+    ├── prettify.js         # Bootstraps prism.
     └── test.js             # Creates temp/index.html with <pre><code>var str ='hello world';</code></pre>
                             #   to verify that prettyprint gets applied after a timeout.
 
@@ -35,16 +33,29 @@ npm test
 This will produce a directory and file at `temp/index.html`, containing the source-code snippet in HTML:
 
 ```html
-<pre><code>var str ='hello world';</code></pre>
+<pre><code class="language-javascript">var str ='hello world';</code></pre>
+<pre><code class="language-css">body{ margin: 0; }</code></pre>
+<pre><code>// some misc code</code></pre>
+<p><code>var str ='hello world';</code>
 ```
 
 Running the tests will verify that this source-code snippet in HTML is correctly prettified by the plugin.
 
 In [`test.js`](test.js), the [bit-docs-generate-html](https://github.com/bit-docs/bit-docs-generate-html) plugin is generating HTML from the equivalent of this markdown:
 
-    ```
+    ```javascript
     var str ='hello world';
     ```
+
+    ```css
+    body { margin: 0; }
+    ```
+
+    ```
+    // some misc code
+    ```
+
+    `var str ='hello world';`
 
 That shows how a bit-docs "generator" plugin can generate the right HTML to play nice with `bit-docs-prettify`.
 

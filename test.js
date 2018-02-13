@@ -3,90 +3,67 @@ var Q = require("q");
 var path = require("path");
 var assert = require("assert");
 
-var Browser = require("zombie"),
-	connect = require("connect");
+var Browser = require("zombie");
+var connect = require("connect");
 
-
-var find = function(browser, property, callback, done){
-	var start = new Date();
-	var check = function(){
-		if(browser.window && browser.window[property]) {
-			callback(browser.window[property]);
-		} else if(new Date() - start < 2000){
-			setTimeout(check, 20);
-		} else {
-			done("failed to find "+property);
-		}
-	};
-	check();
-};
-var waitFor = function(browser, checker, callback, done){
-	var start = new Date();
-	var check = function(){
-		if(checker(browser.window)) {
-			callback(browser.window);
-		} else if(new Date() - start < 2000){
-			setTimeout(check, 20);
-		} else {
-			done(new Error("checker was never true"));
-		}
-	};
-	check();
-};
-
-
-var open = function(url, callback, done){
+var open = function(url, callback, done) {
 	var server = connect().use(connect.static(path.join(__dirname))).listen(8081);
 	var browser = new Browser();
-	browser.visit("http://localhost:8081/"+url)
-		.then(function(){
-			callback(browser, function(){
+
+	browser.visit("http://localhost:8081/" + url)
+		.then(function() {
+			callback(browser, function() {
 				server.close();
 			});
-		}).catch(function(e){
+		})
+		.catch(function(e) {
 			server.close();
 			done(e);
-		});
+		})
+	;
 };
 
-// somehow do a build with this added on ...
+describe("bit-docs-prettify", function() {
+	it("basics work", function(done) {
+		this.timeout(30000);
 
-describe("bit-docs-prettify", function(){
-    it("basics work", function(done){
-        this.timeout(30000);
+		var docMap = Q({
+			index: {
+					name: "index",
+					body: "```javascript\nvar str ='hello world';\n```\n\n```css\nbody { margin: 0; }\n```\n\n```\n// some misc code\n```\n\n`var str ='hello world';`"
+			}
+		});
 
-        var docMap = Q({
-            index: {
-                name: "index",
-                body: "```\nvar str ='hello world';\n```"
-            }
-        });
+		generate(docMap, {
+			html: {
+				dependencies: {
+					"bit-docs-prettify": __dirname
+				}
+			},
+			dest: path.join(__dirname, "temp"),
+			parent: "index",
+			forceBuild: true
+		})
+			.then(function() {
+				open("temp/index.html", function(browser, close) {
+					var codes = browser.window.document.getElementsByTagName("code");
 
-        generate(docMap,{
-            html: {
-                dependencies: {
-                    "bit-docs-prettify": __dirname
-                }
-            },
-            dest: path.join(__dirname, "temp"),
-            parent: "index",
-            forceBuild: true
-        }).then(function(){
+					for (var i = 0; i < codes.length; i++) {
+						assert.ok(codes[i].className.includes("language-"), "has a language");
 
-            open("temp/index.html",function(browser, close){
+						if (codes[i].parentNode.nodeName === "pre") {
+							assert.ok(codes[i].parentNode.className.includes("language-"), "has a language");
+						}
+					}
 
-				var prettyprinted = browser.window.document.getElementsByClassName("prettyprint");
-
-				assert.ok(prettyprinted.length, "has a returns object");
-
-				close();
-				done();
-
-			},done);
-
-        }).catch(function(err){
-            console.log("err",err.stack);
-            done(err);
-        });
-    });
+					close();
+					done();
+				}, done);
+			})
+			.catch(function(err) {
+				console.log("err", err.stack);
+				done(err);
+			})
+		;
+	});
 });

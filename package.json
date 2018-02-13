@@ -25,18 +25,14 @@
     "url": "https://github.com/bit-docs/bit-docs-prettify/issues"
   },
   "homepage": "https://github.com/bit-docs/bit-docs-prettify#readme",
-  "system": {
-    "meta": {
-      "./prettify-engine": {
-        "format": "global"
-      }
-    }
-  },
   "devDependencies": {
     "bit-docs-generate-html": "^0.1.0",
     "connect": "^2.14.4",
     "mocha": "^3.1.2",
     "q": "^1.4.1",
     "zombie": "^4.2.1"
+  },
+  "dependencies": {
+    "prismjs": "^1.11.0"
   }
 }

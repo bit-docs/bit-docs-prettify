@@ -1,3 +1,5 @@
+require("./prettify.less");
+
 require("prismjs");
 require("prismjs/plugins/line-numbers/prism-line-numbers.js");
 require("prismjs/plugins/previewers/prism-previewers.js");
@@ -24,25 +26,22 @@ require("prismjs/plugins/command-line/prism-command-line.css");
 module.exports = function(){
 	var codes = document.getElementsByTagName("code");
 	for (var i = 0; i < codes.length; i++) {
-			var code = codes[i];
+		var code = codes[i];
 
-			if (code.parentNode.nodeName.toUpperCase() === "PRE") {
-				code.parentNode.className += " line-numbers";
+		if (code.parentNode.nodeName.toUpperCase() === "PRE") {
+			code.parentNode.className += " line-numbers";
 
-				if (!code.className.includes("language-")) {
-					code.className += " language-unknown";
-				}
-
-				if (code.className.includes("language-shell")) {
-					code.parentNode.className += " command-line";
-
-					if (code.textContent.slice(-1) === "\n") {
-						code.textContent = code.textContent.slice(0, -1);
-					}
-				}
-			}
-			else {
+			if (!code.className.includes("language-")) {
 				code.className += " language-unknown";
 			}
+
+			if (code.className.includes("language-shell")) {
+				code.parentNode.className += " command-line";
+
+				if (code.textContent.slice(-1) === "\n") {
+					code.textContent = code.textContent.slice(0, -1);
+				}
+			}
+		}
 	}
 }

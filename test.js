@@ -29,8 +29,8 @@ describe("bit-docs-prettify", function() {
 
 		var docMap = Q({
 			index: {
-					name: "index",
-					body: "```javascript\nvar str = 'hello world';\n```\n\n```css\nbody {\n  margin: 0;\n  background: purple;\n}\n```\n\n```shell\npwd\n```\n\n```\n// some misc code\n```\n\n`var str = 'hello world';`"
+				name: "index",
+				body: "```javascript\nvar str = 'hello world';\n```\n\n```css\nbody {\n  margin: 0;\n  background: purple;\n}\n```\n\n```shell\npwd\n```\n\n```\n// some misc code\n```"
 			}
 		});
 

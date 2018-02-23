@@ -1,6 +1,6 @@
 require("./prettify.less");
 
-require("prismjs");
+var Prism = require("prismjs");
 require("prismjs/plugins/line-numbers/prism-line-numbers.js");
 require("prismjs/plugins/previewers/prism-previewers.js");
 require("prismjs/plugins/command-line/prism-command-line.js");
@@ -44,4 +44,6 @@ module.exports = function(){
 			}
 		}
 	}
+
+	Prism.highlightAll();
 }

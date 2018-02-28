@@ -1,0 +1,27 @@
+.collapse.collapsed > .collapse-code {
+	display: none;
+}
+
+.collapse.collapsed {
+	color: black;
+	text-align: center;
+	background-color: #eee;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	padding: calc(0.25em - 1px) 0;
+}
+
+.collapse.collapsed:before {
+	display: block;
+	content: url("../../node_modules/bit-docs-html-canjs/static/img/expand_icon.svg");
+	margin: 0 auto;
+
+	width: 1em;
+	height: 1em;
+	line-height: 1em;
+}
+
+.collapse.collapsed:hover {
+	opacity: .6;
+	cursor: pointer;
+}

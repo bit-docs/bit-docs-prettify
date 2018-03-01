@@ -1,10 +1,18 @@
-pre[class*="language-"] > code {
-    font-size: 16px !important;
-    border-left: none !important;
-    box-shadow: 0px 0px 0px 1px #dfdfdf !important;
-}
+article {
+    pre[class*="language-"] > code {
+        font-size: 16px;
+        border-left: none;
+        box-shadow: 0px 0px 0px 1px #dfdfdf;
+        background-image: none;
+    }
 
-pre[class*=language-]:after, pre[class*=language-]:before {
-    display: none !important;
-    content: none !important;
+    pre[class*=language-]:after, pre[class*=language-]:before {
+        display: none;
+        content: none;
+    }
+
+    .line-highlight {
+        background: hsla(221, 79%, 51%, .1);
+        background: linear-gradient(to right, hsla(221, 79%, 51%, .1) 70%, hsla(221, 79%, 51%, 0));
+    }
 }

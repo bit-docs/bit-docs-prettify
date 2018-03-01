@@ -7,6 +7,7 @@ require("prismjs/plugins/command-line/prism-command-line.js");
 require("prismjs/plugins/line-highlight/prism-line-highlight.js");
 require("prismjs/plugins/toolbar/prism-toolbar.js");
 require("prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.js");
+require("./prism-collapse.js");
 
 require("prismjs/themes/prism-coy.css");
 require("prismjs/plugins/line-numbers/prism-line-numbers.css");
@@ -14,6 +15,7 @@ require("prismjs/plugins/previewers/prism-previewers.css");
 require("prismjs/plugins/command-line/prism-command-line.css");
 require("prismjs/plugins/line-highlight/prism-line-highlight.css");
 require("prismjs/plugins/toolbar/prism-toolbar.css");
+require("./prism-collapse.css");
 
 Prism.languages.insertBefore('javascript', 'template-string', {
 	'html-template-string': {

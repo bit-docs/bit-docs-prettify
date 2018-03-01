@@ -9,15 +9,94 @@ function hasClass(element, className) {
   return (" " + element.className + " ").replace(/[\n\t]/g, " ").indexOf(className) > -1
 }
 
+function adjustHighlights(pre, collapseRange, visible) {
+	collapseRange = collapseRange.split('-').map(function(value) {
+		return parseInt(value);
+	});
+
+	var highlights = $(pre).find('.line-highlight');
+	var lineHeight = getLineHeight(highlights);
+
+	highlights.each(function() {
+		var highlight = $(this);
+		var range = highlight.attr('data-range').split('-').map(function(value) {
+			return parseInt(value);
+		});
+
+		if (range.length === 1) {
+			var line = range[0];
+			if (line < collapseRange[0]) {
+				return;
+			}
+
+			if (line > collapseRange[1]) {
+				var top = parseFloat(highlight.css('top').slice(0, -2));
+				var offset = (collapseRange[1] - collapseRange[0]) * lineHeight;
+
+				highlight.css('top', top + (visible ? offset : -offset));
+				return;
+			}
+
+			highlight.css('display', visible ? 'block' : 'none');
+			return;
+		}
+
+		if (range.length === 2) {
+			if (range[1] < collapseRange[0]) {
+				return;
+			}
+
+			if (range[0] > collapseRange[1]) {
+				var top = parseFloat(highlight.css('top').slice(0, -2));
+				var offset = (collapseRange[1] - collapseRange[0]) * lineHeight;
+
+				highlight.css('top', top + (visible ? offset : -offset));
+				return;
+			}
+
+			highlight.css('display', visible ? 'block' : 'none');
+			return;
+		}
+	});
+
+	function getLineHeight(highlights) {
+		var highlight = highlights.eq(0);
+		var height = parseFloat(highlight.css('height').slice(0, -2));
+
+		var range = highlight.attr('data-range').split('-').map(function(value) {
+			return parseInt(value);
+		});
+
+		if (range.length === 1) {
+			return height;
+		}
+
+		return height / (range[1] - range[0] + 1);
+	}
+}
+
 function collapseLines(pre, config, hasLineNumbers) {
 	var inserts = [];
 
 	var ranges = config.split(',');
 	for (var i = 0; i < ranges.length; i++) {
-		var parts = ranges[i].split('-');
+		var range = ranges[i];
+		var parts = range.split('-');
 
-		inserts.push([ +parts[0], '<div class="collapse collapsed" data-index="' + i + '"><div class="collapse-code">', '<div class="collapse collapsed" data-index="' + i + '"><div class="collapse-lines">' ]);
-		inserts.push([ +parts[1] + 1, '</div></div>', '</div></div>' ]);
+		var wrapper = '<div class="collapse collapsed" data-index="' + i + '" data-range="' + range + '">';
+		inserts.push([
+			+parts[0],
+			wrapper + '<div class="collapse-code">',
+			wrapper + '<div class="collapse-lines">'
+		]);
+
+		inserts.push([
+			+parts[1] + 1,
+			'</div></div>',
+			'</div></div>'
+		]);
+
+		adjustHighlights(pre, range, false);
 	}
 
 	inserts.sort(function (a, b) {
@@ -46,7 +125,7 @@ function collapseLines(pre, config, hasLineNumbers) {
 	});
 
 	for (var i = 0; i < inserts.length; i++) {
-		var line = inserts[i][0] - 1;
+		var line = Math.min(code.length - 1, inserts[i][0] - 1);
 
 		code.splice(line, 0, inserts[i][1]);
 		numbers[line] += inserts[i][2];
@@ -79,13 +158,17 @@ Prism.hooks.add('complete', function completeHook(env) {
 });
 
 $('body').on('click', 'pre code .collapse.collapsed', function() {
-	var parent = $(this).closest('code');
-	var index = $(this).attr('data-index');
+	var collapse = $(this);
+	var pre = collapse.closest('pre');
+	var code = collapse.closest('code');
+	var index = collapse.attr('data-index');
 
-	parent
+	code
 		.find('.collapse[data-index=' + index + ']')
 		.removeClass('collapsed')
 	;
+
+	adjustHighlights(pre, collapse.attr('data-range'), true);
 });
 
 })();

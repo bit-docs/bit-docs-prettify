@@ -40,6 +40,8 @@ pre.line-numbers code {
 
 		> .collapse-lines {
 			position: absolute;
+			height: 0;
+			overflow: hidden;
 		}
 
 		&:before {

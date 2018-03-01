@@ -19,7 +19,7 @@ pre code {
 
 		&:before {
 			display: block;
-			content: url("../../node_modules/bit-docs-html-canjs/static/img/expand_icon.svg");
+			content: '⇅ EXPAND ⇅';
 			margin: 0 auto;
 
 			width: 1em;

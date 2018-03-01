@@ -9,7 +9,14 @@ var connect = require("connect");
 var zombieFixes = "Object.defineProperty(HTMLElement.prototype, 'classList', { get: function() { var parent = this; var classList = parent.className.split(' '); classList.contains = classList.includes; classList.add = function(token) { this.push(token); parent.className = this.join(' '); }; return classList; } });\n\n";
 
 var open = function(url, callback, done) {
-	var server = connect().use(connect.static(path.join(__dirname))).listen(8081);
+	var stealPath = path.join(__dirname, "temp", "static", "node_modules", "steal", "steal.production.js");
+	fs.writeFileSync(stealPath, zombieFixes + fs.readFileSync(stealPath, "utf8"));
+
+	var indexPath = path.join(__dirname, "temp", "index.html");
+	fs.writeFileSync(indexPath, fs.readFileSync(indexPath, "utf8").replace("</head>", "<script src='https:\/\/cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script></head>"));
+
+
+	var server = connect().use(connect.static(path.join(__dirname, 'temp'))).listen(8081);
 	var browser = new Browser();
 
 	browser.visit("http://localhost:8081/" + url)
@@ -47,10 +54,7 @@ describe("bit-docs-prettify", function() {
 			forceBuild: true
 		})
 			.then(function() {
-				var stealPath = path.join(__dirname, "temp", "static", "node_modules", "steal", "steal.production.js");
-				fs.writeFileSync(stealPath, zombieFixes + fs.readFileSync(stealPath, "utf8"));
-
-				open("temp/index.html", function(browser, close) {
+				open("index.html", function(browser, close) {
 					var codes = browser.window.document.getElementsByTagName("code");
 
 					for (var i = 0; i < codes.length; i++) {
@@ -66,7 +70,7 @@ describe("bit-docs-prettify", function() {
 				}, done);
 			})
 			.catch(function(err) {
-				console.log("err", err.stack);
+				console.log(err);
 				done(err);
 			})
 		;

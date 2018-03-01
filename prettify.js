@@ -15,7 +15,7 @@ require("prismjs/plugins/previewers/prism-previewers.css");
 require("prismjs/plugins/command-line/prism-command-line.css");
 require("prismjs/plugins/line-highlight/prism-line-highlight.css");
 require("prismjs/plugins/toolbar/prism-toolbar.css");
-require("./prism-collapse.css");
+require("./prism-collapse.less");
 
 Prism.languages.insertBefore('javascript', 'template-string', {
 	'html-template-string': {

@@ -18,6 +18,35 @@ require("prismjs/plugins/line-highlight/prism-line-highlight.css");
 require("prismjs/plugins/toolbar/prism-toolbar.css");
 require("./prism-collapse.less");
 
+/**
+ * Get node for provided line number
+ * Copied from prism-line-numbers.js and modified to support nested spans
+ * @param {Element} element pre element
+ * @param {Number} number line number
+ * @return {Element|undefined}
+ */
+Prism.plugins.lineNumbers.getLine = function (element, number) {
+	if (element.tagName !== 'PRE' || !element.classList.contains('line-numbers')) {
+		return;
+	}
+
+	var lineNumberRows = element.querySelector('.line-numbers-rows');
+	var lineNumberStart = parseInt(element.getAttribute('data-start'), 10) || 1;
+	var lineNumberEnd = lineNumberStart + (lineNumberRows.children.length - 1);
+
+	if (number < lineNumberStart) {
+		number = lineNumberStart;
+	}
+	if (number > lineNumberEnd) {
+		number = lineNumberEnd;
+	}
+
+	var lineIndex = number - lineNumberStart;
+
+	// this line was changed
+	return lineNumberRows.querySelectorAll('span')[lineIndex];
+};
+
 Prism.languages.insertBefore('javascript', 'template-string', {
 	'html-template-string': {
 		pattern: /`(?:[\s\S])*<[a-z-]+(?:\s+[^<>]*)?>(?:[\s\S])*`/,
@@ -37,7 +66,7 @@ Prism.languages.insertBefore('javascript', 'template-string', {
 	}
 });
 
-Prism.hooks.add('before-highlightall', function (env) {
+module.exports = function() {
 	var codes = document.getElementsByTagName("code");
 	for (var i = 0; i < codes.length; i++) {
 		var code = codes[i];
@@ -63,6 +92,6 @@ Prism.hooks.add('before-highlightall', function (env) {
 			}
 		}
 	}
-});
 
-Prism.highlightAll();
+	window.requestAnimationFrame(Prism.highlightAll);
+};

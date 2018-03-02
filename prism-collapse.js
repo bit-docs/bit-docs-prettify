@@ -1,7 +1,5 @@
-(function(){
-
 if (typeof self === 'undefined' || !self.Prism || !self.document || !document.querySelector) {
-	return;
+	throw new Error('Prism must be loaded before prism-collapse');
 }
 
 function hasClass(element, className) {
@@ -170,5 +168,3 @@ $('body').on('click', 'pre code .collapse.collapsed', function() {
 
 	adjustHighlights(pre, collapse.attr('data-range'), true);
 });
-
-})();

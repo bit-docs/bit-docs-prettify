@@ -1,5 +1,6 @@
 require("./prettify.less");
 
+require("./prism-config");
 var Prism = require("prismjs");
 require("prismjs/plugins/line-numbers/prism-line-numbers.js");
 require("prismjs/plugins/previewers/prism-previewers.js");
@@ -62,4 +63,6 @@ Prism.hooks.add('before-highlightall', function (env) {
 			}
 		}
 	}
- });
+});
+
+Prism.highlightAll();

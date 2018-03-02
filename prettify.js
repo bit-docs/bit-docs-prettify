@@ -86,11 +86,6 @@ module.exports = function() {
 				code.parentNode.className += " command-line";
 			}
 		}
-		else {
-			if (!code.className.includes("language-")) {
-				code.className += " language-unknown";
-			}
-		}
 	}
 
 	window.requestAnimationFrame(Prism.highlightAll);

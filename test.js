@@ -6,8 +6,23 @@ var assert = require("assert");
 var Browser = require("zombie");
 var connect = require("connect");
 
-// make a function and to-string the function
-var zombieFixes = "Object.defineProperty(HTMLElement.prototype, 'classList', { get: function() { var parent = this; var classList = parent.className.split(' '); classList.contains = classList.includes; classList.add = function(token) { this.push(token); parent.className = this.join(' '); }; return classList; } });\n\n";
+function zombieFixes() {
+	Object.defineProperty(HTMLElement.prototype, 'classList', {
+		get: function() {
+			var parent = this;
+
+			var classList = parent.className.split(' ');
+			classList.contains = classList.includes;
+			classList.add = function(token) {
+				this.push(token);
+				parent.className = this.join(' ');
+			};
+
+			return classList;
+		}
+	});
+}
+zombieFixes = zombieFixes.toString() + "\nzombieFixes();\n\n"
 
 var open = function(url, callback, done) {
 	var stealPath = path.join(__dirname, "temp", "static", "node_modules", "steal", "steal.production.js");

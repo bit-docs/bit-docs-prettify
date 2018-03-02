@@ -31,8 +31,9 @@ Prism.plugins.lineNumbers.getLine = function (element, number) {
 	}
 
 	var lineNumberRows = element.querySelector('.line-numbers-rows');
+	var lineNumbers = lineNumberRows.querySelectorAll('span');
 	var lineNumberStart = parseInt(element.getAttribute('data-start'), 10) || 1;
-	var lineNumberEnd = lineNumberStart + (lineNumberRows.children.length - 1);
+	var lineNumberEnd = lineNumberStart + (lineNumbers.length - 1);
 
 	if (number < lineNumberStart) {
 		number = lineNumberStart;
@@ -43,8 +44,7 @@ Prism.plugins.lineNumbers.getLine = function (element, number) {
 
 	var lineIndex = number - lineNumberStart;
 
-	// this line was changed
-	return lineNumberRows.querySelectorAll('span')[lineIndex];
+	return lineNumbers[lineIndex];
 };
 
 Prism.languages.insertBefore('javascript', 'template-string', {

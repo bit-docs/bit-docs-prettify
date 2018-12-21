@@ -17,6 +17,9 @@ require("prismjs/plugins/toolbar/prism-toolbar");
 require("prismjs/plugins/toolbar/prism-toolbar.css");
 require("prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard");
 
+require("prismjs/components/prism-typescript");
+require("prismjs/components/prism-jsx");
+
 Prism.languages.insertBefore('javascript', 'template-string', {
 	'html-template-string': {
 		pattern: /`(?:[\s\S])*<[a-z-]+(?:\s+[^<>]*)?>(?:[\s\S])*`/,

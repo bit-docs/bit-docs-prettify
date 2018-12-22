@@ -2,6 +2,7 @@ require("./prettify.less");
 
 require("./prism-config");
 var Prism = require("prismjs");
+window.Prism = Prism;
 require("prismjs/themes/prism-coy.css");
 
 require("prismjs/plugins/line-numbers/prism-line-numbers");

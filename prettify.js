@@ -21,6 +21,9 @@ require("prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard");
 require("prismjs/components/prism-typescript");
 require("prismjs/components/prism-jsx");
 require("prismjs/components/prism-tsx");
+require("prismjs/components/prism-graphql");
+require("prismjs/components/prism-go");
+require("prismjs/components/prism-python");
 
 Prism.languages.insertBefore('javascript', 'template-string', {
 	'html-template-string': {
